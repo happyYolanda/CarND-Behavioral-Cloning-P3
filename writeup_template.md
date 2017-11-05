@@ -56,9 +56,9 @@ Here is a visualization of the architecture:
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to drive back from the side of the road. 
 
-To augment the data sat, I also flipped images and angles thinking that this would learn both right and left turns. For example, 'img_flip.jpg' is an image that has then been flipped:
+To augment the data sat, I also flipped images and angles thinking that this would learn both right and left turns. For example, 'img_flip.jpg' is an image that has then been flipped.
 
-In order to simulate a bending road, the image 'img_shear.jpg' is sheared horizontally:
+In order to simulate a bending road, the image 'img_shear.jpg' is sheared horizontally.
 
 I also randomly crop subsections of the image to simulate the car being offset from the middle of the road: 'img_crop.jpg'
 

@@ -31,7 +31,7 @@ The final model architecture (model.py) consisted of a convolution neural networ
 
 6) a single neuron that provides the predicted steering angle. ReLU activations are used throughout the whole network.  
 
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
+Here is a visualization of the architecture:
 
 | Layer (type)                    | Output Shape      |    Param #   |  Connected to                     
 |---------------------------------|-------------------|--------------|------------------------- 
@@ -56,20 +56,15 @@ Here is a visualization of the architecture (note: visualizing the architecture 
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to drive back from the side of the road. 
 
-To augment the data sat, I also flipped images and angles thinking that this would learn both right and left turns. For example, here is an image that has then been flipped:
+To augment the data sat, I also flipped images and angles thinking that this would learn both right and left turns. For example, 'img_flip.jpg' is an image that has then been flipped:
 
-![flipped image][img_flip.jpg]
+In order to simulate a bending road, the image 'img_shear.jpg' is sheared horizontally:
 
-In order to simulate a bending road, the image is sheared horizontally:
-![sheared image][img_shear.jpg]
+I also randomly crop subsections of the image to simulate the car being offset from the middle of the road: 'img_crop.jpg'
 
-I also randomly crop subsections of the image to simulate the car being offset from the middle of the road:
-![cropped image][img_crop.jpg]
+At last, I use change the brightness of image to simulate differnt lighting conditions: 'img_bright.jpg'
 
-At last, I use change the brightness of image to simulate differnt lighting conditions:
-![brightness image][img_bright.jpg]
-
-The final training images are then generated in batches of 20 on the fly with 2000 images per epoch. A python generator creates new training batches by applying the aforementioned transformations with accordingly corrected steering angles. 
+The final training images are then generated in batches of 20 on the fly with 2000 images per epoch. 
 
 #### 4. Model Training
 After the collection process, I had 23211 number of data points.I finally randomly shuffled the data set and put 10% of the data into a validation set. I used this training data for training the model. The validation set helped determine if the model was over or under fitting. I used an adam optimizer so that manually training the learning rate wasn't necessary.

@@ -20,16 +20,12 @@ from keras.models import model_from_json
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array
 import cv2
 
-# Fix error with Keras and TensorFlow
 import tensorflow as tf
-#tf.python.control_flow_ops = tf
 
 
 img_rows,img_cols=64,64
 
 def random_crop(image,steering=0.0,tx_lower=-20,tx_upper=20,ty_lower=-2,ty_upper=2,rand=True):
-    # we will randomly crop subsections of the image and use them as our data set.
-    # also the input to the network will need to be cropped, but of course not randomly and centered.
     shape = image.shape
     col_start,col_end =abs(tx_lower),shape[1]-tx_upper
     horizon=60;
@@ -40,10 +36,8 @@ def random_crop(image,steering=0.0,tx_lower=-20,tx_upper=20,ty_lower=-2,ty_upper
     else:
         tx,ty=0,0
     
-    #    print('tx = ',tx,'ty = ',ty)
     random_crop = image[horizon+ty:bonnet+ty,col_start+tx:col_end+tx,:]
     image = cv2.resize(random_crop,(64,64),cv2.INTER_AREA)
-    # the steering variable needs to be updated to counteract the shift 
     if tx_lower != tx_upper:
         dsteering = -tx/(tx_upper-tx_lower)/20.0
     else:
@@ -71,9 +65,7 @@ def telemetry(sid, data):
     image_array = np.asarray(image)
     image_array,_ = random_crop(image_array,rand=False)
     transformed_image_array = image_array[None, :, :, :]
-    # This model currently assumes that the features of the model are just the images. Feel free to change this.
     steering_angle = float(model.predict(transformed_image_array, batch_size=1))
-    # The driving model currently just outputs a constant throttle. Feel free to edit this.
     throttle = 0.3
     print(steering_angle, throttle)
     send_control(steering_angle, throttle)

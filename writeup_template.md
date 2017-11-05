@@ -19,7 +19,17 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 #### 2. Final Model Architecture
 
 The final model architecture (model.py) consisted of a convolution neural network with the following layers and layer sizes:
-1) preprocessing layer that takes in images of shape 64x64x3. 2) two convolutional with kernels of size k=(8,8), stride of s=(4,4) and 32 and 64 channels repectively. 3) convolutional layer uses k=(4,4) kernels, a stride of s=(2,2) and 128 channels. 4) convolutional layer use k=(2,2), a stride s=(1,1) and 128 channels. 5) two fully connected layers with ReLU activations as well as dropout regularization. 6) a single neuron that provides the predicted steering angle. ReLU activations are used throughout the whole network.  
+1) preprocessing layer that takes in images of shape 64x64x3. 
+
+2) two convolutional with kernels of size k=(8,8), stride of s=(4,4) and 32 and 64 channels repectively. 
+
+3) convolutional layer uses k=(4,4) kernels, a stride of s=(2,2) and 128 channels. 
+
+4) convolutional layer use k=(2,2), a stride s=(1,1) and 128 channels. 
+
+5) two fully connected layers with ReLU activations as well as dropout regularization. 
+
+6) a single neuron that provides the predicted steering angle. ReLU activations are used throughout the whole network.  
 
 Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
 

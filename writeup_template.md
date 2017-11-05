@@ -2,8 +2,6 @@
 
 ## Writeup Report
 
-** Behavioral Cloning Project**
-
 ### Model Architecture and Training Strategy
 
 #### 1. Solution Design Approach

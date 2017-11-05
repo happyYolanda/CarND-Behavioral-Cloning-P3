@@ -48,6 +48,7 @@ print('Y_train[:5]: ',Y_train[:5])
 
 
 def read_next_image(m,lcr,X_train,X_left,X_right,Y_train):
+    #add mutiple camera image
     offset=1.0 
     dist=20.0
     steering = Y_train[m]
@@ -67,6 +68,7 @@ def read_next_image(m,lcr,X_train,X_left,X_right,Y_train):
     return image,steering
 
 def cropness(image,steering=0.0,tx_lower=-20,tx_upper=20,ty_lower=-2,ty_upper=2,rand=True):
+    #crop subsections of the image to simulate the car being offset from the middle of the road
     shape = image.shape
     col_start,col_end =abs(tx_lower),shape[1]-tx_upper
     horizon=60;
@@ -88,9 +90,9 @@ def cropness(image,steering=0.0,tx_lower=-20,tx_upper=20,ty_lower=-2,ty_upper=2,
     return image,steering
 
 def shearness(image,steering,shear_range):
+    #simulate a bending road
     rows,cols,ch = image.shape
     dx = np.random.randint(-shear_range,shear_range+1)
-    #    print('dx',dx)
     random_point = [cols/2+dx,rows/2]
     pts1 = np.float32([[0,rows],[cols,rows],[cols/2,rows/2]])
     pts2 = np.float32([[0,rows],[cols,rows],random_point])
@@ -102,6 +104,7 @@ def shearness(image,steering,shear_range):
     return image,steering
 
 def brightness(image):
+    #simulate differnt lighting conditions
     image1 = cv2.cvtColor(image,cv2.COLOR_RGB2HSV)
     random_bright = 0.8 + 0.4*(2*np.random.uniform()-1.0)    
     image1[:,:,2] = image1[:,:,2]*random_bright
@@ -109,6 +112,7 @@ def brightness(image):
     return image1
 
 def flipness(image,steering):
+    #learn both right and left turns
     coin=np.random.randint(0,2)
     if coin==0:
         image,steering=cv2.flip(image,1),-steering
@@ -136,7 +140,6 @@ def generate_validation_set(X_val,Y_val):
     
 
 def generate_train_batch(X_train,X_left,X_right,Y_train,batch_size = 32):
-    
     batch_images = np.zeros((batch_size, 64, 64, 3))
     batch_steering = np.zeros(batch_size)
     while 1:
@@ -146,17 +149,9 @@ def generate_train_batch(X_train,X_left,X_right,Y_train,batch_size = 32):
             batch_steering[i_batch] = y
         yield batch_images, batch_steering
 
-
-
 batch_size=20
 train_generator = generate_train_batch(X_train,X_left,X_right,Y_train,batch_size)
 X_val,Y_val = generate_validation_set(X_val,Y_val)
-
-print('X_train data type :',X_train.dtype)
-print('Y_train data type :',Y_train.dtype)
-print('X_val data type :',X_val.dtype)
-print('Y_val data type :',Y_val.dtype)
-
 
 model = Sequential()
 model.add(Lambda(lambda x: x/127.5 - 1.0,input_shape=(64,64,3)))

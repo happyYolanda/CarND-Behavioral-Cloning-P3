@@ -1,12 +1,12 @@
-#Behavioral Cloning
+# Behavioral Cloning
 
-##Writeup Report
+## Writeup Report
 
-**Behavioral Cloning Project**
+** Behavioral Cloning Project**
 
-###Model Architecture and Training Strategy
+### Model Architecture and Training Strategy
 
-####1. Solution Design Approach
+#### 1. Solution Design Approach
 
 The overall strategy for deriving a model architecture was to predict the steering angle of the simulator using CNN.
 
@@ -18,7 +18,7 @@ The final step was to run the simulator to see how well the car was driving arou
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
-####2. Final Model Architecture
+#### 2. Final Model Architecture
 
 The final model architecture (model.py) consisted of a convolution neural network with the following layers and layer sizes:
 1) preprocessing layer that takes in images of shape 64x64x3. 2) two convolutional with kernels of size k=(8,8), stride of s=(4,4) and 32 and 64 channels repectively. 3) convolutional layer uses k=(4,4) kernels, a stride of s=(2,2) and 128 channels. 4) convolutional layer use k=(2,2), a stride s=(1,1) and 128 channels. 5) two fully connected layers with ReLU activations as well as dropout regularization. 6) a single neuron that provides the predicted steering angle. ReLU activations are used throughout the whole network.  
@@ -44,7 +44,7 @@ Here is a visualization of the architecture (note: visualizing the architecture 
 | dense_2 (Dense)                |  (None, 128)       |    16512      | dropout_2[0][0]                  
 | dense_3 (Dense)                |  (None, 1)        |     129        | dense_2[0][0]       
 
-####3. Creation of the Training Set & Training Process
+#### 3. Creation of the Training Set & Training Process
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to drive back from the side of the road. 
 
@@ -63,5 +63,5 @@ At last, I use change the brightness of image to simulate differnt lighting cond
 
 The final training images are then generated in batches of 20 on the fly with 2000 images per epoch. A python generator creates new training batches by applying the aforementioned transformations with accordingly corrected steering angles. 
 
-####4. Model Training
+#### 4. Model Training
 After the collection process, I had 23211 number of data points.I finally randomly shuffled the data set and put 10% of the data into a validation set. I used this training data for training the model. The validation set helped determine if the model was over or under fitting. I used an adam optimizer so that manually training the learning rate wasn't necessary.
